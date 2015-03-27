@@ -1,0 +1,89 @@
+---
+title: "sex_comparison"
+author: "Nick Fox"
+date: "Friday, March 27, 2015"
+output: html_document
+---
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(broom)
+
+
+setwd("C:/Users/Nick/Documents/GitHub/single_platform_wram")
+
+wram_raw <- read.csv("one_platform_wram_raw.csv", header = TRUE)
+
+wram_SEA <- wram_raw %>%
+  filter(Treatment == "SEA")
+#makes data.frame of only SEA treated animals
+
+wram_SEA <- wram_SEA %>%
+  group_by(Day, Animal) %>%
+  mutate(avr_duration = mean(Duration), avr_distance = mean(Distance)) %>%
+  distinct(avr_duration, avr_distance)
+#makes data.frame for sex difference analysis in the SEA treated animals
+
+wram_SEA_ggplot <- wram_SEA %>%
+  filter(Day != 1) %>%
+  group_by(Day, Sex) %>%
+  mutate(avr_duration_sex = mean(Duration), avr_distance_sex = mean(Distance)) %>%
+  distinct(avr_duration_sex, avr_distance_sex)
+
+aov_SEA_out_duration <- aov(avr_duration ~ Sex * Day + Error(Animal), data = wram_SEA)
+summary(aov_SEA_out_duration)
+#Sex difference analysis of latency to find platform in SEA treated animals
+
+wram_SEA_ggplot %>%
+  ggplot(aes(x = Day, y = avr_duration_sex, group = Sex, linetype = Sex, shape = Sex)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average latency to find platform") + ggtitle("Figure 14. Average latency to find platform over day\nin males and females from SEA treated mothers") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
+#Figure 14 - graph for sex difference in latency to find platform in SEA treated animals
+
+aov_SEA_out_distance <- aov(avr_distance ~ Sex * Day + Error(Animal), data = wram_SEA)
+summary(aov_SEA_out_distance)
+#sex difference analysis on distance travelled to find platform in SEA treated animals
+
+wram_SEA_ggplot %>%
+  ggplot(aes(x = Day, y = avr_distance_sex, group = Sex, linetype = Sex, shape = Sex)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average distance traveled before finding platform") + ggtitle("Figure 15. Average distance traveled to find platform over day\nin males and females from SEA treated mothers") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
+#Figure 15 - graph for sex difference in distance traveled to find platform in SEA treated animals
+
+wram_SEA_speed <- wram_SEA %>%
+  filter(Day != 1) %>%
+  group_by(Day, Animal) %>%
+  mutate(avr_speed = mean(Mean.speed)) %>%
+  distinct(avr_speed)
+#makes a new data.frame that looks at speed
+
+aov_SEA_out_speed <- aov(avr_speed ~ Sex * Day + Error(Animal), data = wram_SEA_speed)
+summary(aov_SEA_out_speed)
+#analysis for sex differences in speed
+
+wram_SEA_speed_ggplot <- wram_SEA %>%
+  filter(Day != 1) %>%
+  group_by(Day, Sex) %>%
+  mutate(avr_speed = mean(Mean.speed)) %>%
+  distinct(avr_speed)
+#makes data.frame for speed ggplot
+
+
+wram_SEA_speed_ggplot %>%
+  ggplot(aes(x = Day, y = avr_speed, group = Sex, linetype = Sex, shape = Sex)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average speed (m/s)") + ggtitle("Figure 16. Average speed find platform over day\nin males and females from SEA treated mothers") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
+#Figure 16 - graph for sex difference in speed in SEA treated animals
+
+
+
+
+
+
+wram_SAL <- wram_raw %>%
+  filter(Treatment == "Saline")
+#makes data.frame of only Saline treated animals
+
+wram_SAL <- wram_SAL %>%
+  group_by(Day, Animal) %>%
+  mutate(avr_duration = mean(Duration), avr_distance = mean(Distance)) %>%
+  distinct(avr_duration, avr_distance)
+
+
+```
