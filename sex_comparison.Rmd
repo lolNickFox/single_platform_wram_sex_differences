@@ -180,7 +180,7 @@ summary(aov_female_out_distance)
 ### Females: average speed
 ```{r echo = FALSE}
 wram_female_speed_ggplot %>%
-  ggplot(aes(x = Day, y = avr_speed, group = Treatment, linetype = Treatment, shape = Treatment)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average speed (m/s)") + ggtitle("Figure 3. Average speed find platform over day\nby females") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
+  ggplot(aes(x = Day, y = avr_speed, group = Treatment, linetype = Treatment, shape = Treatment)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average speed (m/s)") + ggtitle("Figure 3. Average speed to find platform over day\nby females") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
 #Figure 16 - graph for sex difference in speed in SALINE treated animals
 
 aov_female_out_speed <- aov(avr_speed ~ Treatment * Day + Error(Animal), data = wram_female_speed)
@@ -224,7 +224,7 @@ summary(aov_male_out_distance)
 ### Males: average speed
 ```{r echo = FALSE}
 wram_male_speed_ggplot %>%
-  ggplot(aes(x = Day, y = avr_speed, group = Treatment, linetype = Treatment, shape = Treatment)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average speed (m/s)") + ggtitle("Figure 6. Average speed find platform over day\nby males") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
+  ggplot(aes(x = Day, y = avr_speed, group = Treatment, linetype = Treatment, shape = Treatment)) + geom_point(size = 3) + geom_line(size = 1, alpha = 0.8) + theme_bw() + ylab("Average speed (m/s)") + ggtitle("Figure 6. Average speed to find platform over day\nby males") + theme (plot.title = element_text(size = 16, face = "bold")) + geom_smooth(method = "lm", se = FALSE, colour = "black")
 #Figure 16 - graph for sex difference in speed in SALINE treated animals
 
 aov_male_out_speed <- aov(avr_speed ~ Treatment * Day + Error(Animal), data = wram_male_speed)
@@ -333,8 +333,11 @@ summary(aov_SEA_out_speed)
 -------
 -------
 
-Conclusions - There are baseline differences between males and females in the single platform wRAM, this is made clear by the differences between them in the Saline treatment group (figures 7, 8, and 9). There is a sex x day interaction when looking at distance traveled to find the platform (figure 8).  Males start off traveling more, but reduce their distance traveled faster than females, resulting in a lower final distance traveled by the end of the test.
+<b>Conclusions</b> <br>
+There are baseline differences between males and females in the single platform wRAM, this is made clear by the differences between them in the Saline treatment group (figures 7, 8, and 9). There is a sex x day interaction when looking at distance traveled to find the platform (figure 8).  Males start off traveling more, but reduce their distance traveled faster than females, resulting in a lower final distance traveled by the end of the test.
 <br> <br>
 We can also see a big difference between males and females in average speed (figures 9 and 12).  Male's speed reduces over time and female's speed stays the same (figure 9) or reduces very little (figure 12).  This is the case in both Saline treatment and SEA treatment.
+<br> <br>
+Interestingly, there is an affect of both treatment and day on the average speed of males (figure 6), but neither treatment or day affect female's average swim speed (figure 3).
 <br> <br>
 Comparing Saline to SEA treatments, a statistically significant sex difference emerges when performance is measured by latency to find the platform.  While there is not a statistically significant difference between males and females in the Saline treatment group (figure 7), in the SEA treatment group, females find the platform significantly faster than the males (figure 10).
